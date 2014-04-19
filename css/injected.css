@@ -1,0 +1,293 @@
+.feed_col{
+	background-color:white;
+}
+#layout_header{
+	display:none !important;
+}
+.left_col{
+	display:none;
+}
+.center_col{
+	margin-left:-4px !important;
+}
+.focus_feed .contents{
+	width: 460px;
+	padding-left: 5px !important;
+	padding-right: 20px !important;
+}
+.main{
+	overflow:hidden;
+}
+.main_content{
+	padding-top: 5px !important;
+}
+.topic_page {
+	padding-left: 5px !important;
+}
+.profile_photo{
+	display:none;
+}
+.tweet {
+    font-size: 13px;
+}
+
+.front-welcome {
+    display: none;
+}
+.front-signin {
+    position: relative;
+    left: 0px;
+    top: 50px;
+    margin: 0 auto;
+}
+.front-signup {
+    position: relative;
+    top: 70px;
+    left: 0px;
+    margin: 0 auto;
+}
+.global-nav .container {
+    width: auto;
+    min-width: 450px;
+}
+
+.front-card {
+    width: auto;
+    margin: 0 auto;
+    left: 0px;
+    top: 0px;
+    position: relative;
+}
+
+.front-warning {
+    width: auto;
+}
+
+.footer {
+    display: none;
+}
+
+/*
+.dashboard {
+    display: none;
+}
+*/
+
+.wrapper-home .dashboard {
+    display: none;
+}
+
+.wrapper-connect .dashboard {
+    display: none;
+}
+
+.wrapper-discover .dashboard {
+    display: none;
+}
+
+.wrapper-profile .dashboard {
+    display: none;
+}
+
+.wrapper-search .dashboard {
+    display: none;
+}
+
+.search-title {
+  width: auto;
+}
+
+.js-search-dropdown {
+  display: none;
+}
+
+.search-assist-related-queries {
+  width: auto;
+}
+
+#page-container {
+    width: auto;
+}
+
+#timeline {
+    float: none;
+    width: auto;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+#discover-stories {
+    float: none;
+    width: auto;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+#tweet-box-template {
+    max-width: 420px;
+    width: auto;
+}
+
+.profile-header.profile-card {
+    width: auto;
+    max-width: 520px;
+    float: none;
+    margin: 0 auto;
+}
+
+.profile-header-inner-overlay {
+    width: auto;
+    max-width: 520px;
+}
+
+.expand-stream-item {
+    display: none;
+}
+
+.collapse-stream-item {
+    display: none;
+}
+
+.modal {
+    width: 430px;
+    max-width: 520px;
+    margin: 0 auto;
+    left: 0px;
+}
+
+.wrapper-settings {
+    width: auto;
+    max-width: 520px;
+}
+
+.form-horizontal .control-label {
+    80px;
+}
+
+/*
+#user-dropdown {
+    display: none;
+}
+*/
+
+.dm-dialog .dm-tweetbox .tweet-content .tweet-box {
+    width: 380px;
+}
+
+.tweet-form .tweet-box {
+    width: 380px;
+}
+
+#user-dropdown-toggle .caret {
+    display: none;
+}
+
+#user-dropdown {
+    width: 44px;
+}
+
+/******** Start of css for profile page ***********/
+.profile-card.profile-header {
+    width: auto;
+    max-width: 520px;
+}
+
+.profile-header-inner-overlay {
+    width: auto;
+    max-width: 520px;
+}
+
+.user_profile{
+	margin-left: 25px;
+}
+.w6_5{
+	width: 480px; 
+}
+.w4{
+	width: 422px;
+}
+.profile_feed_item{
+	width: 430px;
+}
+div.pagedlist_item > div.row > div.w4_5{
+	width: 450px;
+}
+.answer_content{
+	width: 430px;
+}
+.form_row{
+	width: 430px;
+}
+div.profile_photo_size_200 > div > div.profile_photo{
+	display: block !important;
+	margin-left: 55px !important;
+}
+.section{
+	display: none;
+}
+/*div.profile_about_preview{
+	margin-left: -90px;
+}
+div.truncated_q_text>div{
+	width:445px;
+}*/
+/******** End of css for profile page ***********/
+/******** Start of css for Embed Quote ***********/
+div.dialog >div.dialog_wrapper{
+	margin-left: 52px;
+}
+div.dialog{
+	width: 455px !important;
+}
+div.dialog_wrapper{
+	width: 435px !important;
+}
+
+div.dialog >div.dialog_wrapper>div.dialog_frame{
+	width: 435px !important; 
+}
+
+/******** End of css for Embed Quote ***********/
+/******** Start of css for question in a column ***********/
+/*div.question_page> div > div >div.row>div.w6_5>div.row{
+	margin-left: 110px;
+}
+
+div.question_page > div > div > div.row > div.w6_5 > div > div > div > div.row > div.answer_border{
+	margin-left: 110px;
+}*/
+div.row>div.w6_5>div.question{
+	margin-left: 110px;
+}
+
+div.row > div.answer_border{
+	margin-left: 110px;
+}
+div.question_text_edit > div.inline_editor_content{
+	width: 500px;
+}
+#q_view{
+	width: 500px;
+}
+/******** End of css for question in a column ***********/
+/******** Start of css for 'Add Question' in a column ***********/
+div.dialog > div.dialog_wrapper{
+	margin-left: -25px;
+}
+/*div.empty_answer_suggestion_wrapper> div.wants_answers{
+	margin-left: 110px;
+}*/
+
+div.invite_to_answer{
+	margin-left: 110px;
+}
+
+#generic_dialog_loading > div > div.dialog_wrapper{
+	margin-left: -20px;
+}
+
+div.answer_wiki_text{
+	margin-left: 110px;
+}
+
+/******** End of css for 'Add Question' in a column ***********/

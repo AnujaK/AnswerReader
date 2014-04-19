@@ -1,0 +1,12 @@
+{
+  "name": "AnswerReader",
+  "description": "A fully customizable multi-column view of Quora.",
+  "version": "0.4.0.1",
+  "permissions": ["webview", "contextMenus", "alarms", "pointerLock", "storage", "http://*.quora.com/"],
+  "app": {
+    "background": {
+      "scripts": ["src/background.js"]
+    }
+  },
+  "icons": {"128": "icon_128.png"}
+}

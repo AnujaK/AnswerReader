@@ -3,8 +3,9 @@ AnswerReader
 
 A fully customizable multi-column view of Quora.
 
-
 Use Quora like a power user and get the most out of it.
+
+Download from Chrome Web Store : https://chrome.google.com/webstore/detail/quoradeck/nmlmmfhcfakpadbomgockopmaojmcnlk
 
 ## Features
 

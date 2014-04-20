@@ -6,6 +6,7 @@ A fully customizable multi-column view of Quora.
 Use Quora like a power user and get the most out of it.
 
 Download from Chrome Web Store : https://chrome.google.com/webstore/detail/answerreader/nmlmmfhcfakpadbomgockopmaojmcnlk
+Updates : http://answerreader.quora.com/
 
 ## Features
 
@@ -37,6 +38,7 @@ Send your suggestions and feedback to  http://www.quora.com/Anuja-Kulkarni-Kumar
 
 ## Change Log
 
+* Version 0.4.0.1 : Renamed to AnswerReader. Minor css fixes.
 * Version 0.3.0 : Categorized left panel items into groups. UI changes in left panel.
 * Version 0.2.9 : Added icons. Bug fixes.
 * Version 0.2.8 : User profile made accessible from left navigation.

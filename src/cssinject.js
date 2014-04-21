@@ -8,15 +8,21 @@ var myCssHack = function () {
         registered = true;
     }
 };
-    
-var injectCSS = function(webView, cssURL) {
+
+var injectCSS = function (webView, cssURL) {
     var url = chrome.runtime.getURL(cssURL);
-    $.get(url, function(data) {
+    $.get(url, function (data) {
         var cssToInject = data;
         var js = 'var registered';
-        webView.executeScript({ code: js });
+        webView.executeScript({
+            code: js
+        });
         js = 'var cssToInject = ' + JSON.stringify(cssToInject) + ';';
-        webView.executeScript({ code: js });
-        webView.executeScript({ code: '(' + myCssHack + ')()' });
+        webView.executeScript({
+            code: js
+        });
+        webView.executeScript({
+            code: '(' + myCssHack + ')()'
+        });
     });
-}
+};

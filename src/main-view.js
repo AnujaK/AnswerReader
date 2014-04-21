@@ -1,4 +1,6 @@
 "use strict";
+/*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50*/
+/*global define, $*/
 
 $(document).ready(function () {
     document.getElementById('qd_topics_save').addEventListener('click', save_topics);
@@ -44,7 +46,7 @@ var apiLoginInWebView = function () {
         //Do nothing.
     });
     webViewHome.on('loadstop', function (e) {
-        if (apiLoginCalled != true) {
+        if (apiLoginCalled !== true) {
             console.log("loadstop at apiLoginInWebView");
             var injectedJS = "var bodyText = document.body.innerText; " + "var isApiLoggedIn; " + "var apiResponse = {loggedInUserDetails : '', isApiLoggedIn : ''}; " + "bodyText = bodyText.substring(\"while(1);\".length); " + "apiResponse.loggedInUserDetails = bodyText; " + "if(bodyText == \"\"){apiResponse.isApiLoggedIn = 'false';}else{apiResponse.isApiLoggedIn = 'true';} " + "console.log('bodyText : '+bodyText);callbackData=apiResponse;";
             webViewHome.get(0).executeScript({
@@ -52,7 +54,7 @@ var apiLoginInWebView = function () {
             }, function (callbackData) {
                 var callbackResponse = callbackData[0];
                 apiLoginCalled = true;
-                if (callbackResponse.isApiLoggedIn == 'true') {
+                if (callbackResponse.isApiLoggedIn === 'true') {
                     API_LOGGED_IN_USER_DETAILS = JSON.parse(callbackResponse.loggedInUserDetails);
                     var qdhp_profile_btn_text = document.getElementById('qdhp_profile_btn_text');
                     qdhp_profile_btn_text.innerText = unescape("%A0%A0%A0") + API_LOGGED_IN_USER_DETAILS.name;
@@ -90,7 +92,7 @@ var doLogin = function () {
             code: injectedJS
         }, function (callbackData) {
             console.log("is logged in : callbackData : " + callbackData);
-            if (callbackData == "true") {
+            if (callbackData === "true") {
                 var signUpWebView = $('#socialSignUpWebView');
                 console.log("Length:  " + signUpWebView.length);
                 if (signUpWebView.length > 0) {
@@ -130,7 +132,7 @@ var doLogin = function () {
             var signUpWebView = $('#socialSignUpWebView');
             var signUpWebViewURL = signUpWebView.attr('src');
             console.log("signUpWebViewURL : " + signUpWebViewURL);
-            if ((signUpWebViewURL.indexOf('callback') != -1) && (signUpWebViewURL.indexOf('oauth2') == -1)) {
+            if ((signUpWebViewURL.indexOf('callback') !== -1) && (signUpWebViewURL.indexOf('oauth2') == -1)) {
                 console.log("In if condition");
                 signUpWebView.hide();
             } else if ((signUpWebViewURL.indexOf('https://www.facebook.com/dialog/oauth/write') != -1) || (signUpWebViewURL.indexOf('https://www.facebook.com/dialog/oauth/read') != -1)) {
@@ -175,7 +177,7 @@ var callApiToGetUserDetails = function () {
 
 var matrix_reloaded = function () {
     var webViewHome = document.getElementById('default-webview');
-    if (webViewHome != null) {
+    if (webViewHome !== null) {
         webViewHome.parentNode.removeChild(webViewHome);
     }
 
@@ -197,7 +199,7 @@ var matrix_reloaded = function () {
             chrome.storage.local.set({
                 'listOfTopics': JSON.stringify(topics)
             }, function () {
-                display_topics(topics)
+                display_topics(topics);
             });
         } else {
             //add columns
@@ -209,7 +211,7 @@ var matrix_reloaded = function () {
                     chrome.storage.local.set({
                         'homeColumns': JSON.stringify(homeColumns)
                     }, function () {
-                        display_home_settings(homeColumns)
+                        display_home_settings(homeColumns);
                     });
                 } else {
                     var homeColumns = JSON.parse(result.homeColumns);

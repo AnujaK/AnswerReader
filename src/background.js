@@ -1,3 +1,5 @@
+/*jslint devel: true */
+/*global define, chrome*/
 "use strict";
 
 chrome.app.runtime.onLaunched.addListener(function () {

@@ -1,3 +1,5 @@
+/*jslint devel: true */
+/*global define, chrome*/
 "use strict";
 
 var myCssHack = function () {
@@ -12,8 +14,7 @@ var myCssHack = function () {
 var injectCSS = function (webView, cssURL) {
     var url = chrome.runtime.getURL(cssURL);
     $.get(url, function (data) {
-        var cssToInject = data;
-        var js = 'var registered';
+        var cssToInject = data, js = 'var registered';
         webView.executeScript({
             code: js
         });

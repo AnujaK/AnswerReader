@@ -27,6 +27,16 @@ Updates : http://answerreader.quora.com/
 
 * Become a Power User: Everything that you can do on Quora plus ease and multi-column view.
 
+## Load AnswerReader App
+
+Click on Chrome settings icon  and choose Tools > Extensions.
+
+Make sure the Developer mode checkbox has been selected.
+
+Click the Load unpacked extension button, navigate to AnswerReader folder and click OK.
+
+Once you've loaded the app, open a New Tab page and click on the AnswerReader icon.
+
 ## Getting started
 
 1. After downloading and launching the app, login to Quora. 

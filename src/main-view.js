@@ -66,10 +66,11 @@ var apiLoginInWebView = function () {
             });
         }
     });
-}
+};
+
 var doLogin = function () {
     var defaultWebView = document.getElementById('default-webview');
-    if (defaultWebView != null) {
+    if (defaultWebView !== null) {
         //Do nothing.
     } else {
         var newdiv = document.createElement('webview');
@@ -132,7 +133,7 @@ var doLogin = function () {
             var signUpWebView = $('#socialSignUpWebView');
             var signUpWebViewURL = signUpWebView.attr('src');
             console.log("signUpWebViewURL : " + signUpWebViewURL);
-            if ((signUpWebViewURL.indexOf('callback') !== -1) && (signUpWebViewURL.indexOf('oauth2') == -1)) {
+            if ((signUpWebViewURL.indexOf('callback') !== -1) && (signUpWebViewURL.indexOf('oauth2') === -1)) {
                 console.log("In if condition");
                 signUpWebView.hide();
             } else if ((signUpWebViewURL.indexOf('https://www.facebook.com/dialog/oauth/write') != -1) || (signUpWebViewURL.indexOf('https://www.facebook.com/dialog/oauth/read') != -1)) {
@@ -183,7 +184,7 @@ var matrix_reloaded = function () {
 
     var lbarDynamicRowsWrapper = document.getElementById('lbar_dynamic_rows_wrapper');
     var lbarDynamicRows = document.getElementById('lbar_dynamic_rows');
-    if (lbarDynamicRows != null) {
+    if (lbarDynamicRows !== null) {
         lbarDynamicRows.parentNode.removeChild(lbarDynamicRows);
     }
     var lbarDynamicRows = document.createElement('Div');

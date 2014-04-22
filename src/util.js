@@ -2,6 +2,7 @@
 /*global define, chrome, $*/
 "use strict";
 
+
 function scrollToColumn(id, off) {
     $('body, html').scrollLeft(5000);
 }
@@ -21,47 +22,53 @@ function getQuoraUserDetails() {
     });
 }
 
-var open_qd_search = function () {
-    var qdNewTabItemsModal = $('#qdNewTabItemsModal'), web_dialog = $('#web_dialog');
+function open_qd_search() {
+    var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+        web_dialog = $('#web_dialog');
     web_dialog.attr('src', 'https://www.quora.com/search');
     qdNewTabItemsModal.modal('show');
-};
+}
 
-var open_qd_profile = function () {
-    var qdNewTabItemsModal = $('#qdNewTabItemsModal'), web_dialog = $('#web_dialog');
+function open_qd_profile() {
+    var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+        web_dialog = $('#web_dialog');
     web_dialog.attr('src', API_LOGGED_IN_USER_DETAILS.link);
     qdNewTabItemsModal.modal('show');
-};
+}
 
-var open_qd_stats = function () {
-    var qdNewTabItemsModal = $('#qdNewTabItemsModal'), web_dialog = $('#web_dialog');
+function open_qd_stats() {
+    var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+        web_dialog = $('#web_dialog');
     web_dialog.attr('src', 'https://www.quora.com/stats');
     qdNewTabItemsModal.modal('show');
-};
+}
 
-var open_qd_credits = function () {
-    var qdNewTabItemsModal = $('#qdNewTabItemsModal'), web_dialog = $('#web_dialog');
+function open_qd_credits() {
+    var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+        web_dialog = $('#web_dialog');
     web_dialog.attr('src', 'https://www.quora.com/credits');
     qdNewTabItemsModal.modal('show');
-};
+}
 
-var open_qd_blog = function () {
-    var qdNewTabItemsModal = $('#qdNewTabItemsModal'), web_dialog = $('#web_dialog');
+function open_qd_blog() {
+    var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+        web_dialog = $('#web_dialog');
     web_dialog.attr('src', 'http://quoradeckblog.quora.com/');
     qdNewTabItemsModal.modal('show');
-};
+}
 
-var open_qd_contact = function () {
-    var qdNewTabItemsModal = $('#qdNewTabItemsModal'), web_dialog = $('#web_dialog');
+function open_qd_contact() {
+    var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+        web_dialog = $('#web_dialog');
 
     web_dialog.attr('src', 'http://www.quora.com/Anuja-Kulkarni-Kumar');
     qdNewTabItemsModal.modal('show');
-};
+}
 
-var qd_dialog_back_handler = function () {
+function qd_dialog_back_handler() {
     var dialogWebView = document.querySelector('#web_dialog');
     dialogWebView.back();
-};
+}
 
 //UTIL FUNCTIONS
 function deepCopy(o) {

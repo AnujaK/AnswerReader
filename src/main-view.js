@@ -2,6 +2,8 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50*/
 /*global define, $*/
 
+//TODO : 1. Code cleanup. 2. Add meaningful log statements.
+
 $(document).ready(function () {
     document.getElementById('qd_topics_save').addEventListener('click', save_topics);
     document.getElementById('qd_topics_save_reload').addEventListener('click', save_topics_and_reload);
@@ -41,29 +43,35 @@ var apiLoginInWebView = function () {
     document.body.appendChild(newdiv);
 
     var webViewHome = $('#default-webview');
+    var isLoginWebViewLoaded = false;
+
     webViewHome.attr('src', 'http://api.quora.com/api/logged_in_user?fields=notifs');
     webViewHome.on('loadstart', function (e) {
         //Do nothing.
     });
     webViewHome.on('loadstop', function (e) {
-        if (apiLoginCalled !== true) {
-            console.log("loadstop at apiLoginInWebView");
-            var injectedJS = "var bodyText = document.body.innerText; " + "var isApiLoggedIn; " + "var apiResponse = {loggedInUserDetails : '', isApiLoggedIn : ''}; " + "bodyText = bodyText.substring(\"while(1);\".length); " + "apiResponse.loggedInUserDetails = bodyText; " + "if(bodyText == \"\"){apiResponse.isApiLoggedIn = 'false';}else{apiResponse.isApiLoggedIn = 'true';} " + "console.log('bodyText : '+bodyText);callbackData=apiResponse;";
-            webViewHome.get(0).executeScript({
-                code: injectedJS
-            }, function (callbackData) {
-                var callbackResponse = callbackData[0];
-                apiLoginCalled = true;
-                if (callbackResponse.isApiLoggedIn === 'true') {
-                    API_LOGGED_IN_USER_DETAILS = JSON.parse(callbackResponse.loggedInUserDetails);
-                    var qdhp_profile_btn_text = document.getElementById('qdhp_profile_btn_text');
-                    qdhp_profile_btn_text.innerText = unescape("%A0%A0%A0") + API_LOGGED_IN_USER_DETAILS.name;
-                    matrix_reloaded();
-                } else {
-                    doLogin();
-                }
+        if (isLoginWebViewLoaded === false) {
+            isLoginWebViewLoaded = true;
+            if (apiLoginCalled !== true) {
+                console.log("loadstop at apiLoginInWebView");
+                var injectedJS = "var bodyText = document.body.innerText; " + "var isApiLoggedIn; " + "var apiResponse = {loggedInUserDetails : '', isApiLoggedIn : ''}; " + "bodyText = bodyText.substring(\"while(1);\".length); " + "apiResponse.loggedInUserDetails = bodyText; " + "if(bodyText == \"\"){apiResponse.isApiLoggedIn = 'false';}else{apiResponse.isApiLoggedIn = 'true';} " + "console.log('bodyText : '+bodyText);callbackData=apiResponse;";
+                webViewHome.get(0).executeScript({
+                    code: injectedJS
+                }, function (callbackData) {
+                    console.log("test 123");
+                    var callbackResponse = callbackData[0];
+                    apiLoginCalled = true;
+                    if (callbackResponse.isApiLoggedIn === 'true') {
+                        API_LOGGED_IN_USER_DETAILS = JSON.parse(callbackResponse.loggedInUserDetails);
+                        var qdhp_profile_btn_text = document.getElementById('qdhp_profile_btn_text');
+                        qdhp_profile_btn_text.innerText = unescape("%A0%A0%A0") + API_LOGGED_IN_USER_DETAILS.name;
+                        matrix_reloaded();
+                    } else {
+                        doLogin();
+                    }
 
-            });
+                });
+            }
         }
     });
 };
@@ -83,36 +91,42 @@ var doLogin = function () {
     }
 
     var webViewHome = $('#default-webview');
+    var isQuoraHomeWebViewLoaded = false;
+
     webViewHome.attr('src', 'http://www.quora.com/');
     webViewHome.on('loadstart', function (e) {
         //Do nothing.
     });
     webViewHome.on('loadstop', function (e) {
-        var injectedJS = "var login = document.getElementsByClassName('header_login_text_box'); " + "console.log('loaded login' + login.length); var localIsLoggedIn;" + "if(login.length > 0 ){console.log('login page'); localIsLoggedIn='false'; } " + "else{ console.log('logged-in home page'); localIsLoggedIn='true'; } " + "console.log('last line of execute script');callbackData=localIsLoggedIn;";
-        webViewHome.get(0).executeScript({
-            code: injectedJS
-        }, function (callbackData) {
-            console.log("is logged in : callbackData : " + callbackData);
-            if (callbackData === "true") {
-                var signUpWebView = $('#socialSignUpWebView');
-                console.log("Length:  " + signUpWebView.length);
-                if (signUpWebView.length > 0) {
-                    signUpWebView.width(0);
-                    signUpWebView.height(0);
-                    signUpWebView.hide();
+        if (isQuoraHomeWebViewLoaded === false) {
+            isQuoraHomeWebViewLoaded = true;
+            var injectedJS = "var login = document.getElementsByClassName('header_login_text_box'); " + "console.log('loaded login' + login.length); var localIsLoggedIn;" + "if(login.length > 0 ){console.log('login page'); localIsLoggedIn='false'; } " + "else{ console.log('logged-in home page'); localIsLoggedIn='true'; } " + "console.log('last line of execute script');callbackData=localIsLoggedIn;";
+            webViewHome.get(0).executeScript({
+                code: injectedJS
+            }, function (callbackData) {
+                console.log("is logged in : callbackData : " + callbackData);
+                if (callbackData === "true") {
+                    var signUpWebView = $('#socialSignUpWebView');
+                    console.log("Length:  " + signUpWebView.length);
+                    if (signUpWebView.length > 0) {
+                        signUpWebView.width(0);
+                        signUpWebView.height(0);
+                        signUpWebView.hide();
+                    }
+                    chrome.storage.local.set({
+                        'isQDInitialized': 'true'
+                    }, function () {
+                        restore_topics();
+                        restore_home_settings();
+                        $('#myModal').modal('show');
+                        callApiToGetUserDetails();
+                    });
+                } else {
+                    console.log("callbackData is false...");
+                    //Do nothing.
                 }
-                chrome.storage.local.set({
-                    'isQDInitialized': 'true'
-                }, function () {
-                    restore_topics();
-                    restore_home_settings();
-                    $('#myModal').modal('show');
-                    callApiToGetUserDetails();
-                });
-            } else {
-                //Do nothing.
-            }
-        });
+            });
+        }
     });
     webViewHome.on('newwindow', function (e) {
         console.log("targetUrl : " + e.originalEvent.targetUrl);
@@ -176,7 +190,9 @@ var callApiToGetUserDetails = function () {
     });
 }
 
+//TODO : rename method
 var matrix_reloaded = function () {
+    console.log("Inside matrix_reloaded function");
     var webViewHome = document.getElementById('default-webview');
     if (webViewHome !== null) {
         webViewHome.parentNode.removeChild(webViewHome);
@@ -187,6 +203,7 @@ var matrix_reloaded = function () {
     if (lbarDynamicRows !== null) {
         lbarDynamicRows.parentNode.removeChild(lbarDynamicRows);
     }
+
     var lbarDynamicRows = document.createElement('Div');
     var lbarDynamicRowsName = 'lbar_dynamic_rows';
     lbarDynamicRows.setAttribute('id', lbarDynamicRowsName);

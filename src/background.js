@@ -6,9 +6,9 @@ chrome.app.runtime.onLaunched.addListener(function () {
     chrome.app.window.create('../html/window.html', {
         'id': 'main-view',
         'width': 3000,
-        'height': 500,
+        'height': 720,
         'minWidth': 450,
-        'minHeight': 500
+        'minHeight': 720
     });
 });
 chrome.runtime.onInstalled.addListener(function (details) {

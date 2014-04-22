@@ -49,6 +49,7 @@ Send your suggestions and feedback to  http://www.quora.com/Anuja-Kulkarni-Kumar
 
 ## Change Log
 
+* Version 0.4.0.2 : Fixed the bug - Column View not seen for initial few times.
 * Version 0.4.0.1 : Renamed to AnswerReader. Minor css fixes.
 * Version 0.3.0 : Categorized left panel items into groups. UI changes in left panel.
 * Version 0.2.9 : Added icons. Bug fixes.

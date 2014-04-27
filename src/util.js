@@ -53,7 +53,7 @@ function open_qd_credits() {
 function open_qd_blog() {
     var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
         web_dialog = $('#web_dialog');
-    web_dialog.attr('src', 'http://quoradeckblog.quora.com/');
+    web_dialog.attr('src', 'http://answerreader.quora.com/');
     qdNewTabItemsModal.modal('show');
 }
 

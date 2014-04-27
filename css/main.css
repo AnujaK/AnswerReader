@@ -1,0 +1,47 @@
+.topic_table td {
+    border-top: none !important;
+}
+.qd-left-bar {
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1030;
+    left: 0;
+    background-color: #e7e7e7;
+    -webkit-box-shadow: 7px -5px 10px -6px black;
+    overflow-y: hidden;
+    border-top: 1px solid lightgray;
+}
+.qd-btn {
+    width: 100%;
+    border: 0 none;
+    outline: none;
+    height: 50px;
+    padding-left: 15px;
+    //border-bottom: 1px solid lightgray;	
+    font-size: 14px;
+    text-align: left;
+    background-color: #f5f5f5;
+}
+.qd-btn:hover {
+    background: linear-gradient(#3b3f48, #3c434d);
+    color: white;
+    box-shadow: inset 0px 1px 1px #475059;
+}
+span.glyphicon-trash:hover {
+    cursor: pointer;
+}
+#qdNewTabItemsModal {
+    overflow: hidden;
+}
+#qdNewTabBody {
+    padding: 0px;
+}
+#qdNewTabFooter {
+    margin-top: 0px;
+}
+#lbar_dynamic_rows_wrapper {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}

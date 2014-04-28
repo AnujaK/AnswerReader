@@ -147,12 +147,12 @@ function display_home_settings(homeColumns) {
 
 function save_topics_and_reload_quick() {
     save_home_settings();
-    save_topic_quick(matrix_reloaded);
+    save_topic_quick(loadColumns);
 }
 
 function save_topics_and_reload() {
     save_home_settings();
-    save_topics(matrix_reloaded);
+    save_topics(loadColumns);
 }
 
 function refresh_page() {

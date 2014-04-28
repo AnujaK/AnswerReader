@@ -1,6 +1,6 @@
 "use strict";
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50*/
-/*global define, $*/
+/*global define, chrome, $*/
 
 //TODO : 1. Code cleanup. 2. Add meaningful log statements.
 
@@ -14,7 +14,7 @@ $(document).ready(function () {
     document.getElementById('qdhp_stats_btn').addEventListener('click', open_qd_stats);
     document.getElementById('qdhp_credits_btn').addEventListener('click', open_qd_credits);
 
-    document.getElementById('qdhp_reload_btn').addEventListener('click', matrix_reloaded);
+    document.getElementById('qdhp_reload_btn').addEventListener('click', loadColumns);
     document.getElementById('qd_blog').addEventListener('click', open_qd_blog);
     document.getElementById('qd_contact').addEventListener('click', open_qd_contact);
 
@@ -28,186 +28,9 @@ $(document).ready(function () {
     popupWebViewController();
 });
 
-var apiLoginCalled = false;
-var API_CALLED_TO_GET_USER_DETAILS = false;
-var API_LOGGED_IN_USER_DETAILS;
-
-var apiLoginInWebView = function () {
-    var newdiv = document.createElement('webview');
-    var divIdName = 'default-webview';
-    newdiv.setAttribute('id', divIdName);
-    newdiv.setAttribute('style', 'width: 100%; height: 100%;');
-    newdiv.setAttribute('partition', 'persist:quoradeck');
-    newdiv.setAttribute('tabindex', 0);
-
-    document.body.appendChild(newdiv);
-
-    var webViewHome = $('#default-webview');
-    var isLoginWebViewLoaded = false;
-
-    webViewHome.attr('src', 'http://api.quora.com/api/logged_in_user?fields=notifs');
-    webViewHome.on('loadstart', function (e) {
-        //Do nothing.
-    });
-    webViewHome.on('loadstop', function (e) {
-        if (isLoginWebViewLoaded === false) {
-            isLoginWebViewLoaded = true;
-            if (apiLoginCalled !== true) {
-                console.log("loadstop at apiLoginInWebView");
-                var injectedJS = "var bodyText = document.body.innerText; " + "var isApiLoggedIn; " + "var apiResponse = {loggedInUserDetails : '', isApiLoggedIn : ''}; " + "bodyText = bodyText.substring(\"while(1);\".length); " + "apiResponse.loggedInUserDetails = bodyText; " + "if(bodyText == \"\"){apiResponse.isApiLoggedIn = 'false';}else{apiResponse.isApiLoggedIn = 'true';} " + "console.log('bodyText : '+bodyText);callbackData=apiResponse;";
-                webViewHome.get(0).executeScript({
-                    code: injectedJS
-                }, function (callbackData) {
-                    console.log("test 123");
-                    var callbackResponse = callbackData[0];
-                    apiLoginCalled = true;
-                    if (callbackResponse.isApiLoggedIn === 'true') {
-                        API_LOGGED_IN_USER_DETAILS = JSON.parse(callbackResponse.loggedInUserDetails);
-                        var qdhp_profile_btn_text = document.getElementById('qdhp_profile_btn_text');
-                        qdhp_profile_btn_text.innerText = unescape("%A0%A0%A0") + API_LOGGED_IN_USER_DETAILS.name;
-                        matrix_reloaded();
-                    } else {
-                        doLogin();
-                    }
-
-                });
-            }
-        }
-    });
-};
-
-var doLogin = function () {
-    var defaultWebView = document.getElementById('default-webview');
-    if (defaultWebView !== null) {
-        //Do nothing.
-    } else {
-        var newdiv = document.createElement('webview');
-        var divIdName = 'default-webview';
-        newdiv.setAttribute('id', divIdName);
-        newdiv.setAttribute('style', 'width: 100%; height: 100%;');
-        newdiv.setAttribute('partition', 'persist:quoradeck');
-        newdiv.setAttribute('tabindex', 0);
-        document.body.appendChild(newdiv);
-    }
-
-    var webViewHome = $('#default-webview');
-    var isQuoraHomeWebViewLoaded = false;
-
-    webViewHome.attr('src', 'http://www.quora.com/');
-    webViewHome.on('loadstart', function (e) {
-        //Do nothing.
-    });
-    webViewHome.on('loadstop', function (e) {
-        //if (isQuoraHomeWebViewLoaded === false) {
-        //isQuoraHomeWebViewLoaded = true;
-        //}
-    });
-
-    webViewHome.on('loadcommit', function (e) {
-        console.log("webViewHome#loadcommit is called");
-    });
-
-    webViewHome.on('loadabort', function (e) {
-        console.log("webViewHome#loadabort is called");
-    });
-
-    webViewHome.on('contentload', function (e) {
-        console.log("webViewHome#contentload is called");
-        var injectedJS = "var login = document.getElementsByClassName('header_login_text_box'); " + "console.log('loaded login' + login.length); var localIsLoggedIn;" + "if(login.length > 0 ){console.log('login page'); localIsLoggedIn='false'; } " + "else{ console.log('logged-in home page'); localIsLoggedIn='true'; } " + "console.log('last line of execute script');callbackData=localIsLoggedIn;";
-        webViewHome.get(0).executeScript({
-            code: injectedJS
-        }, function (callbackData) {
-            console.log("is logged in : callbackData : " + callbackData);
-            //Imp : check proeprly before using === here!
-            if (callbackData == 'true') {
-                var signUpWebView = $('#socialSignUpWebView');
-                console.log("Length:  " + signUpWebView.length);
-                if (signUpWebView.length > 0) {
-                    signUpWebView.width(0);
-                    signUpWebView.height(0);
-                    signUpWebView.hide();
-                }
-                chrome.storage.local.set({
-                    'isQDInitialized': 'true'
-                }, function () {
-                    restore_topics();
-                    restore_home_settings();
-                    $('#myModal').modal('show');
-                    callApiToGetUserDetails();
-                });
-            } else {
-                console.log("callbackData is false...");
-                //isQuoraHomeWebViewLoaded = false;
-                //Do nothing.
-            }
-        });
-    });
-
-    webViewHome.on('newwindow', function (e) {
-        console.log("targetUrl : " + e.originalEvent.targetUrl);
-        console.log("windowOpenDisposition : " + e.originalEvent.windowOpenDisposition);
-
-        var socialSignUpWebView = document.getElementById('#socialSignUpWebView');
-
-        if (socialSignUpWebView === undefined || socialSignUpWebView === null) {
-            socialSignUpWebView = document.createElement('webview');
-            socialSignUpWebView.setAttribute('style', 'width: 100%; height: 100%;z-index:454554;position:fixed;top:0px;left:0px;');
-            socialSignUpWebView.setAttribute('partition', 'persist:quoradeck');
-            socialSignUpWebView.setAttribute('id', 'socialSignUpWebView');
-            document.body.appendChild(socialSignUpWebView);
-            e.originalEvent.window.attach(socialSignUpWebView);
-        }
-
-        socialSignUpWebView.addEventListener('loadstop', function (e) {
-            var signUpWebView = $('#socialSignUpWebView');
-            var signUpWebViewURL = signUpWebView.attr('src');
-            console.log("signUpWebViewURL : " + signUpWebViewURL);
-            if ((signUpWebViewURL.indexOf('callback') !== -1) && (signUpWebViewURL.indexOf('oauth2') === -1)) {
-                console.log("In if condition");
-                signUpWebView.hide();
-            } else if ((signUpWebViewURL.indexOf('https://www.facebook.com/dialog/oauth/write') != -1) || (signUpWebViewURL.indexOf('https://www.facebook.com/dialog/oauth/read') != -1)) {
-                console.log("In else condition");
-                //signUpWebView.hide();
-            }
-        });
-
-    });
-}
-var callApiToGetUserDetails = function () {
-    var newdiv = document.createElement('webview');
-    var divIdName = 'user-details-api-webview';
-    newdiv.setAttribute('id', divIdName);
-    newdiv.setAttribute('partition', 'persist:quoradeck');
-    newdiv.setAttribute('style', 'width:0px;height:0px;');
-    document.body.appendChild(newdiv);
-    var userDetailsWebView = $('#user-details-api-webview');
-    userDetailsWebView.attr('src', 'http://api.quora.com/api/logged_in_user');
-    userDetailsWebView.on('loadstart', function (e) {
-        //Do nothing.
-    });
-    userDetailsWebView.on('loadstop', function (e) {
-        if (API_CALLED_TO_GET_USER_DETAILS != true) {
-            console.log("loadstop at callApiToGetUserDetails");
-            var injectedJS = "var bodyText = document.body.innerText; " + "var isApiLoggedIn; " + "var apiResponse = {loggedInUserDetails : '', isApiLoggedIn : ''}; " + "bodyText = bodyText.substring(\"while(1);\".length); " + "apiResponse.loggedInUserDetails = bodyText; " + "if(bodyText == \"\"){apiResponse.isApiLoggedIn = 'false';}else{apiResponse.isApiLoggedIn = 'true';} " + "console.log('bodyText : '+bodyText);callbackData=apiResponse;";
-            userDetailsWebView.get(0).executeScript({
-                code: injectedJS
-            }, function (callbackData) {
-                var callbackResponse = callbackData[0];
-                API_CALLED_TO_GET_USER_DETAILS = true;
-                if (callbackResponse.isApiLoggedIn == 'true') {
-                    API_LOGGED_IN_USER_DETAILS = JSON.parse(callbackResponse.loggedInUserDetails);
-                    var qdhp_profile_btn_text = document.getElementById('qdhp_profile_btn_text');
-                    qdhp_profile_btn_text.innerText = unescape("%A0%A0%A0") + API_LOGGED_IN_USER_DETAILS.name;
-                    matrix_reloaded();
-                }
-            });
-        }
-    });
-}
-
 //TODO : rename method
-var matrix_reloaded = function () {
-    console.log("Inside matrix_reloaded function");
+var loadColumns = function () {
+    console.log("Inside loadColumns function");
     var webViewHome = document.getElementById('default-webview');
     if (webViewHome !== null) {
         webViewHome.parentNode.removeChild(webViewHome);
@@ -227,7 +50,7 @@ var matrix_reloaded = function () {
     $(".main-webview-panel").remove();
 
     chrome.storage.local.get('listOfTopics', function (result) {
-        //console.log("matrix_reloaded#result.listOfTopics : " + result.listOfTopics);
+        //console.log("loadColumns#result.listOfTopics : " + result.listOfTopics);
 
         var topics = deepCopy(DEFAULT_TOPIC_COLUMNS);
 
@@ -241,7 +64,7 @@ var matrix_reloaded = function () {
             topics = JSON.parse(result.listOfTopics);
         }
         chrome.storage.local.get('homeColumns', function (result) {
-            //console.log("matrix_reloaded#result.homeColumns : " + result.homeColumns);
+            //console.log("loadColumns#result.homeColumns : " + result.homeColumns);
 
             var homeColumns = deepCopy(DEFAULT_HOME_COLUMNS);
 
@@ -384,10 +207,24 @@ var matrix_reloaded = function () {
                         });
                     })(maximizeButton, i, encodedURL);
 
+                    var deleteButton = document.createElement('img');
+                    deleteButton.setAttribute('src', '../img/RecycleBin.png');
+                    deleteButton.setAttribute('style', 'float:right;cursor:pointer;height:15px;margin-right:10px;');
+                    panelHead.appendChild(deleteButton);
+                    (function (deleteButton, i, encodedURL) {
+                        deleteButton.addEventListener('click', function () {
+                            var columnWebView = $('#main-webview' + i);
+                            var qdNewTabItemsModal = $('#qdNewTabItemsModal');
+                            var web_dialog = $('#web_dialog');
+                            web_dialog.attr('src', columnWebView.attr('src'));
+                            qdNewTabItemsModal.modal('show');
+                        });
+                    })(deleteButton, i, encodedURL);
+
                     var wikiButton = document.createElement('img');
                     wikiButton.setAttribute('src', '../img/wikipedia-32-black.png');
                     wikiButton.setAttribute('style', 'float:right;cursor: pointer;');
-                    //panelHead.appendChild(wikiButton);
+                    //                    panelHead.appendChild(wikiButton);
                     (function (wikiButton, i) {
                         wikiButton.addEventListener('click', function () {
                             var columnWebView = $('#main-webview' + i);
@@ -413,7 +250,8 @@ var matrix_reloaded = function () {
 
                     (function (webView, i) {
                         webView.on('loadstart', function () {});
-                        webView.on('loadstop', function (e) {
+                        //TODO : loadstop or contentload?
+                        webView.on('contentload', function (e) {
                             var mainContentWindow = e.target.contentWindow;
                             var feed_item = $('.feed_item');
                             injectCSS(webView.get(0), 'css/injected.css');
@@ -446,7 +284,6 @@ var matrix_reloaded = function () {
                                     qd_dialog_back.hide();
                                 }
                             }
-
                         });
                     })(webView, i);
                 }
@@ -503,7 +340,7 @@ var initialize = function () {
             doLogin();
         } else {
             console.log("in else of initialize " + result['isQDInitialized']);
-            matrix_reloaded();
+            loadColumns();
         }
     });
 }

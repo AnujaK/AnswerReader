@@ -33,7 +33,7 @@ jQuery(function ($) {
             app.Login.apiLoginInWebView();
 
             //web-view popup controller
-            this.popupWebViewController();
+            app.MainView.popupWebViewController();
         },
 
         loadColumns: function () {

@@ -6,13 +6,11 @@ jQuery(function ($) {
     'use strict';
 
     app.Login = {
-
         apiLoginCalled: false,
-
-        API_CALLED_TO_GET_USER_DETAILS: false,
         API_LOGGED_IN_USER_DETAILS: "",
 
         callApiToGetUserDetails: function () {
+            console.log("Inside callApiToGetUserDetails");
             var newdiv = document.createElement('webview'),
                 divIdName = 'user-details-api-webview';
             newdiv.setAttribute('id', divIdName);
@@ -24,23 +22,23 @@ jQuery(function ($) {
             userDetailsWebView.on('loadstart', function (e) {
                 //Do nothing.
             });
-            userDetailsWebView.on('loadstop', function (e) {
-                if (app.Login.API_CALLED_TO_GET_USER_DETAILS != true) {
-                    console.log("loadstop at callApiToGetUserDetails");
-                    var injectedJS = "var bodyText = document.body.innerText; " + "var isApiLoggedIn; " + "var apiResponse = {loggedInUserDetails : '', isApiLoggedIn : ''}; " + "bodyText = bodyText.substring(\"while(1);\".length); " + "apiResponse.loggedInUserDetails = bodyText; " + "if(bodyText == \"\"){apiResponse.isApiLoggedIn = 'false';}else{apiResponse.isApiLoggedIn = 'true';} " + "console.log('bodyText : '+bodyText);callbackData=apiResponse;";
-                    userDetailsWebView.get(0).executeScript({
-                        code: injectedJS
-                    }, function (callbackData) {
-                        var callbackResponse = callbackData[0];
-                        app.Login.API_CALLED_TO_GET_USER_DETAILS = true;
-                        if (callbackResponse.isApiLoggedIn == 'true') {
-                            app.Login.API_LOGGED_IN_USER_DETAILS = JSON.parse(callbackResponse.loggedInUserDetails);
-                            var qdhp_profile_btn_text = document.getElementById('qdhp_profile_btn_text');
-                            qdhp_profile_btn_text.innerText = unescape("%A0%A0%A0") + app.Login.API_LOGGED_IN_USER_DETAILS.name;
-                            app.MainView.loadColumns();
-                        }
-                    });
-                }
+            userDetailsWebView.on('contentload', function (e) {
+                console.log("loadstop at callApiToGetUserDetails");
+                var injectedJS = "var bodyText = document.body.innerText; " + "var isApiLoggedIn; " + "var apiResponse = {loggedInUserDetails : '', isApiLoggedIn : ''}; " + "bodyText = bodyText.substring(\"while(1);\".length); " + "apiResponse.loggedInUserDetails = bodyText; " + "if(bodyText == \"\"){apiResponse.isApiLoggedIn = 'false';}else{apiResponse.isApiLoggedIn = 'true';} " + "console.log('bodyText : '+bodyText);callbackData=apiResponse;";
+                userDetailsWebView.get(0).executeScript({
+                    code: injectedJS
+                }, function (callbackData) {
+                    var callbackResponse = callbackData[0];
+                    if (callbackResponse.isApiLoggedIn == 'true') {
+                        //TODO : verify the flow.
+                        //app.MainView.popupWebViewController();
+
+                        app.Login.API_LOGGED_IN_USER_DETAILS = JSON.parse(callbackResponse.loggedInUserDetails);
+                        var qdhp_profile_btn_text = document.getElementById('qdhp_profile_btn_text');
+                        qdhp_profile_btn_text.innerText = unescape("%A0%A0%A0") + app.Login.API_LOGGED_IN_USER_DETAILS.name;
+                        app.MainView.loadColumns();
+                    }
+                });
             });
         },
 
@@ -82,10 +80,11 @@ jQuery(function ($) {
 
             webViewHome.on('contentload', function (e) {
                 console.log("webViewHome#contentload is called");
-                var injectedJS = "var login = document.getElementsByClassName('header_login_text_box'); " + "console.log('loaded login' + login.length); var localIsLoggedIn;" + "if(login.length > 0 ){console.log('login page'); localIsLoggedIn='false'; } " + "else{ console.log('logged-in home page'); localIsLoggedIn='true'; } " + "console.log('last line of execute script');callbackData=localIsLoggedIn;";
+                var injectedJS = "var login = document.getElementsByClassName('header_login_text_box'); " + "console.log('loaded login' + login.length); var localIsLoggedIn;" + "if(login.length > 0 ){console.log('login page'); localIsLoggedIn='false'; } " + "else{ console.log('logged-in home page'); localIsLoggedIn='true'; } " + "console.log('last line of execute script#injectedJS');callbackData=localIsLoggedIn;";
                 webViewHome.get(0).executeScript({
                     code: injectedJS
                 }, function (callbackData) {
+                    console.log("test123123123");
                     console.log("is logged in : callbackData : " + callbackData);
                     //Imp : check proeprly before using === here!
                     if (callbackData == 'true') {
@@ -99,8 +98,8 @@ jQuery(function ($) {
                         chrome.storage.local.set({
                             'isQDInitialized': 'true'
                         }, function () {
-                            app.Utils.restore_topics();
-                            app.Utils.restore_home_settings();
+                            app.Settings.restore_topics();
+                            app.Settings.restore_home_settings();
                             $('#myModal').modal('show');
                             app.Login.callApiToGetUserDetails();
                         });

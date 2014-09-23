@@ -39,7 +39,14 @@ jQuery(function ($) {
             web_dialog.attr('src', app.Login.API_LOGGED_IN_USER_DETAILS.link);
             qdNewTabItemsModal.modal('show');
         },
-
+        
+        open_qd_inbox: function () {
+            var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+                web_dialog = $('#web_dialog');
+            web_dialog.attr('src', 'https://www.quora.com/messages');
+            qdNewTabItemsModal.modal('show');
+        },
+        
         open_qd_stats: function () {
             var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
                 web_dialog = $('#web_dialog');

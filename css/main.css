@@ -1,14 +1,3 @@
-.SiteHeader{
-  display: none;
-}
-.grid_page_right_col{
-  display:none;
-}
-.grid_page_left_col{
-  display:none;
-}
-
-
 .topic_table td {
     border-top: none !important;
 }

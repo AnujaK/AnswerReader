@@ -50,22 +50,6 @@ jQuery(function ($) {
                 "rel": "notifications"
             },
             {
-                "lbl": "Inbox",
-                "type": "home",
-                "show": false,
-                "colIdx": -1,
-                "colKey": "inbox",
-                "rel": "inbox"
-            },
-            {
-                "lbl": "Saved Drafts",
-                "type": "home",
-                "show": false,
-                "colIdx": -1,
-                "colKey": "drafts",
-                "rel": "home/drafts"
-            },
-            {
                 "lbl": "Music",
                 "type": "topic",
                 "show": true,
@@ -110,14 +94,6 @@ jQuery(function ($) {
             {
                 "show": true,
                 "rel": "notifications"
-            },
-            {
-                "show": false,
-                "rel": "inbox"
-            },
-            {
-                "show": false,
-                "rel": "home/drafts"
             }
         ],
         DEFAULT_TOPIC_COLUMNS: [
@@ -129,17 +105,13 @@ jQuery(function ($) {
             "questions": "Questions & Answers",
             "open_questions": "Open Questions",
             "posts": "Blog Posts",
-            "notifications": "Notifications",
-            "inbox": "Inbox",
-            "home/drafts": "Saved Drafts"
+            "notifications": "Notifications"
         },
         HOME_COLUMNS_ICON_MAP: {
             "questions": "glyphicon glyphicon-font",
             "open_questions": "glyphicon glyphicon-question-sign",
             "posts": "glyphicon glyphicon-bold",
-            "notifications": "glyphicon glyphicon-bullhorn",
-            "inbox": "glyphicon glyphicon-envelope",
-            "home/drafts": "glyphicon glyphicon-edit"
+            "notifications": "glyphicon glyphicon-bullhorn"
         }
     };
 });

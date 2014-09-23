@@ -17,6 +17,8 @@ jQuery(function ($) {
 
             document.getElementById('qdhp_search_btn').addEventListener('click', app.Utils.open_qd_search);
             document.getElementById('qdhp_profile_btn').addEventListener('click', app.Utils.open_qd_profile);
+            document.getElementById('qdhp_inbox_btn').addEventListener('click', app.Utils.open_qd_inbox);
+            
             document.getElementById('qdhp_stats_btn').addEventListener('click', app.Utils.open_qd_stats);
             document.getElementById('qdhp_credits_btn').addEventListener('click', app.Utils.open_qd_credits);
 
@@ -218,7 +220,7 @@ jQuery(function ($) {
 
                             var deleteButton = document.createElement('img');
                             deleteButton.setAttribute('src', '../img/RecycleBin.png');
-                            deleteButton.setAttribute('style', 'float:right;cursor:pointer;height:15px;margin-right:10px;');
+                            deleteButton.setAttribute('style', 'display:none;float:right;cursor:pointer;height:15px;margin-right:10px;');
                             panelHead.appendChild(deleteButton);
                             (function (deleteButton, i, encodedURL) {
                                 deleteButton.addEventListener('click', function () {

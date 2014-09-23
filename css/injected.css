@@ -1,3 +1,37 @@
+body{
+  overflow-x: hidden;
+}
+.SiteHeader{
+  display: none;
+}
+.grid_page_right_col{
+  display:none;
+}
+.grid_page_left_col{
+  display:none;
+}
+.grid_page_center_col {
+  width: 500px;
+}
+
+.grid_page_hero{
+  width:500px;
+}
+.NewNotificationsMain .grid_page_wrap .grid_page_center_col {
+  width: 500px;
+}
+.action_bar_comments .threaded_comments {
+  width: 100%;
+}
+
+.offset2 {
+margin-left: 50px; 
+}
+
+.span6 {
+  width:500px;
+}
+
 .feed_col{
 	background-color:white;
 }
@@ -24,9 +58,7 @@
 .topic_page {
 	padding-left: 5px !important;
 }
-.profile_photo{
-	display:none;
-}
+
 .tweet {
     font-size: 13px;
 }
@@ -164,12 +196,6 @@
     80px;
 }
 
-/*
-#user-dropdown {
-    display: none;
-}
-*/
-
 .dm-dialog .dm-tweetbox .tweet-content .tweet-box {
     width: 380px;
 }
@@ -209,12 +235,7 @@
 .profile_feed_item{
 	width: 430px;
 }
-/*div.pagedlist_item > div.row > div.w4_5{
-	width: 450px;
-}*/
-.answer_content{
-	width: 430px;
-}
+
 .form_row{
 	width: 430px;
 }
@@ -225,14 +246,7 @@ div.profile_photo_size_200 > div > div.profile_photo{
 .section{
 	display: none;
 }
-/*div.profile_about_preview{
-	margin-left: -90px;
-}
-div.truncated_q_text>div{
-	width:445px;
-}*/
-/******** End of css for profile page ***********/
-/******** Start of css for Embed Quote ***********/
+
 div.dialog >div.dialog_wrapper{
 	margin-left: 52px;
 }

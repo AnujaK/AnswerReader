@@ -1,4 +1,4 @@
-/*jslint devel: true */
+/*jslint devel: true, vars: true*/
 /*global define, chrome, $, jQuery, unescape*/
 var app = app || {};
 
@@ -58,16 +58,13 @@ jQuery(function ($) {
             }
 
             var webViewHome = $('#default-webview');
-            var isQuoraHomeWebViewLoaded = false;
 
             webViewHome.attr('src', 'http://www.quora.com/');
             webViewHome.on('loadstart', function (e) {
                 //Do nothing.
             });
             webViewHome.on('loadstop', function (e) {
-                //if (isQuoraHomeWebViewLoaded === false) {
-                //isQuoraHomeWebViewLoaded = true;
-                //}
+                //Do nothing.
             });
 
             webViewHome.on('loadcommit', function (e) {
@@ -84,7 +81,6 @@ jQuery(function ($) {
                 webViewHome.get(0).executeScript({
                     code: injectedJS
                 }, function (callbackData) {
-                    console.log("test123123123");
                     console.log("is logged in : callbackData : " + callbackData);
                     //Imp : check proeprly before using === here!
                     if (callbackData == 'true') {
@@ -105,8 +101,6 @@ jQuery(function ($) {
                         });
                     } else {
                         console.log("callbackData is false...");
-                        //isQuoraHomeWebViewLoaded = false;
-                        //Do nothing.
                     }
                 });
             });

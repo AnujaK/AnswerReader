@@ -313,6 +313,7 @@ jQuery(function ($) {
         popupWebViewController: function () {
             var web_dialog = $('#web_dialog');
             web_dialog.on('newwindow', function (e) {
+                e.preventDefault();
                 var targetUrl = e.originalEvent.targetUrl;
                 if (targetUrl.indexOf("chrome.google.com/webstore") != -1) {
                     window.open(e.originalEvent.targetUrl);

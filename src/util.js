@@ -4,134 +4,203 @@
 var app = app || {};
 
 jQuery(function ($) {
-    'use strict';
+	'use strict';
 
-    app.Utils = {
-        scrollToColumn: function (id, off) {
-            $('body, html').scrollLeft(5000);
-        },
+	app.Utils = {
+		scrollToColumn: function (id, off) {
+			$('body, html').scrollLeft(5000);
+		},
 
-        getQuoraUserDetails: function () {
-            chrome.alarms.create("QUORA_USER_DETAILS_ALARM", {
-                delayInMinutes: 1
-            });
-            chrome.alarms.get("QUORA_USER_DETAILS_ALARM", function (alarm) {
-                //console.log("Scheduled Time  "+ alarm.scheduledTime);
-            });
-            chrome.alarms.onAlarm.addListener(function (alarm) {
-                //console.log("Alarm Elapsed Name "+alarm.name);
-                //console.log("This is Over");
-                chrome.alarms.clear("QUORA_USER_DETAILS_ALARM");
-                //console.log(" Alarms Cleared");
-            });
-        },
+		getQuoraUserDetails: function () {
+			chrome.alarms.create("QUORA_USER_DETAILS_ALARM", {
+				delayInMinutes: 1
+			});
+			chrome.alarms.get("QUORA_USER_DETAILS_ALARM", function (alarm) {
+				//console.log("Scheduled Time  "+ alarm.scheduledTime);
+			});
+			chrome.alarms.onAlarm.addListener(function (alarm) {
+				//console.log("Alarm Elapsed Name "+alarm.name);
+				//console.log("This is Over");
+				chrome.alarms.clear("QUORA_USER_DETAILS_ALARM");
+				//console.log(" Alarms Cleared");
+			});
+		},
 
-        open_qd_search: function () {
-            var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
-                web_dialog = $('#web_dialog');
-            web_dialog.attr('src', 'https://www.quora.com/search');
-            qdNewTabItemsModal.modal('show');
-        },
+		open_qd_search: function () {
+			var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+				web_dialog = document.getElementById('web_dialog');
+			if (web_dialog !== null) {
+				web_dialog.parentNode.removeChild(web_dialog);
+			}
+			var newdiv = document.createElement('webview');
+			newdiv.setAttribute('id', 'web_dialog');
+			newdiv.setAttribute('partition', 'persist:quoradeck');
+			newdiv.setAttribute('style', 'width:100%;height:100%;');
+			newdiv.setAttribute('src', 'https://www.quora.com/search');
 
-        open_qd_profile: function () {
-            var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
-                web_dialog = $('#web_dialog');
-            web_dialog.attr('src', app.Login.API_LOGGED_IN_USER_DETAILS.link);
-            qdNewTabItemsModal.modal('show');
-        },
-        
-        open_qd_inbox: function () {
-            var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
-                web_dialog = $('#web_dialog');
-            web_dialog.attr('src', 'https://www.quora.com/messages');
-            qdNewTabItemsModal.modal('show');
-        },
-        
-        open_qd_stats: function () {
-            var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
-                web_dialog = $('#web_dialog');
-            web_dialog.attr('src', 'https://www.quora.com/stats');
-            qdNewTabItemsModal.modal('show');
-        },
+			document.getElementById('qdNewTabBody').appendChild(newdiv);
 
-        open_qd_credits: function () {
-            var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
-                web_dialog = $('#web_dialog');
-            web_dialog.attr('src', 'https://www.quora.com/credits');
-            qdNewTabItemsModal.modal('show');
-        },
+			qdNewTabItemsModal.modal('show');
+		},
 
-        open_qd_blog: function () {
-            var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
-                web_dialog = $('#web_dialog');
-            web_dialog.attr('src', 'http://answerreader.quora.com/');
-            qdNewTabItemsModal.modal('show');
-        },
+		open_qd_profile: function () {
+			var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+				web_dialog = document.getElementById('web_dialog');
+			if (web_dialog !== null) {
+				web_dialog.parentNode.removeChild(web_dialog);
+			}
+			var newdiv = document.createElement('webview');
+			newdiv.setAttribute('id', 'web_dialog');
+			newdiv.setAttribute('partition', 'persist:quoradeck');
+			newdiv.setAttribute('style', 'width:100%;height:100%;');
+			newdiv.setAttribute('src', app.Login.API_LOGGED_IN_USER_DETAILS.link);
 
-        open_qd_contact: function () {
-            var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
-                web_dialog = $('#web_dialog');
+			document.getElementById('qdNewTabBody').appendChild(newdiv);
 
-            web_dialog.attr('src', 'http://www.quora.com/Anuja-Kulkarni-Kumar');
-            qdNewTabItemsModal.modal('show');
-        },
+			qdNewTabItemsModal.modal('show');
+		},
 
-        qd_dialog_back_handler: function () {
-            var dialogWebView = document.querySelector('#web_dialog');
-            dialogWebView.back();
-        },
+		open_qd_inbox: function () {
+			var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+				web_dialog = document.getElementById('web_dialog');
+			if (web_dialog !== null) {
+				web_dialog.parentNode.removeChild(web_dialog);
+			}
+			var newdiv = document.createElement('webview');
+			newdiv.setAttribute('id', 'web_dialog');
+			newdiv.setAttribute('partition', 'persist:quoradeck');
+			newdiv.setAttribute('style', 'width:100%;height:100%;');
+			newdiv.setAttribute('src', 'https://www.quora.com/messages');
 
-        deepCopy: function (o) {
-            var copy = o,
-                k;
+			document.getElementById('qdNewTabBody').appendChild(newdiv);
 
-            if (o && typeof o === 'object') {
-                copy = Object.prototype.toString.call(o) === '[object Array]' ? [] : {};
-                for (k in o) {
-                    copy[k] = this.deepCopy(o[k]);
-                }
-            }
-            return copy;
-        },
+			qdNewTabItemsModal.modal('show');
+		},
 
-        removeByValue: function (arr, val) {
-            for (var i = 0; i < arr.length; i++) {
-                if (arr[i] == val) {
-                    arr.splice(i, 1);
-                    break;
-                }
-            }
-        },
+		open_qd_stats: function () {
+			var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+				web_dialog = document.getElementById('web_dialog');
+			if (web_dialog !== null) {
+				web_dialog.parentNode.removeChild(web_dialog);
+			}
+			var newdiv = document.createElement('webview');
+			newdiv.setAttribute('id', 'web_dialog');
+			newdiv.setAttribute('partition', 'persist:quoradeck');
+			newdiv.setAttribute('style', 'width:100%;height:100%;');
+			newdiv.setAttribute('src', 'https://www.quora.com/stats');
 
-        removeByIndex: function (arr, index) {
-            arr.splice(index, 1);
-        },
+			document.getElementById('qdNewTabBody').appendChild(newdiv);
 
-        groupBy: function (data, param) {
-            return _.groupBy(data, param);
-        },
+			qdNewTabItemsModal.modal('show');
+		},
 
-        filterByHome: function (data) {
-            return _.filter(data, function (item) {
-                return item.type == 'home';
-            });
-        },
+		open_qd_credits: function () {
+			var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+				web_dialog = document.getElementById('web_dialog');
+			if (web_dialog !== null) {
+				web_dialog.parentNode.removeChild(web_dialog);
+			}
+			var newdiv = document.createElement('webview');
+			newdiv.setAttribute('id', 'web_dialog');
+			newdiv.setAttribute('partition', 'persist:quoradeck');
+			newdiv.setAttribute('style', 'width:100%;height:100%;');
+			newdiv.setAttribute('src', 'https://www.quora.com/credits');
 
-        filterByTopic: function (data) {
-            return _.filter(data, function (item) {
-                return item.type == 'topic';
-            });
-        },
+			document.getElementById('qdNewTabBody').appendChild(newdiv);
 
-        sortByColIdx: function (data) {
-            return _.sortBy(data, function (item) {
-                return item.colIdx;
-            });
-        },
+			qdNewTabItemsModal.modal('show');
+		},
 
-        moveToIndex: function (arr, moveIndex, toIndex) {
-            var removedItem = arr.splice(moveIndex, 1);
-            arr.splice(toIndex, 0, removedItem);
-        }
-    };
+		open_qd_blog: function () {
+			var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+				web_dialog = document.getElementById('web_dialog');
+			if (web_dialog !== null) {
+				web_dialog.parentNode.removeChild(web_dialog);
+			}
+			var newdiv = document.createElement('webview');
+			newdiv.setAttribute('id', 'web_dialog');
+			newdiv.setAttribute('partition', 'persist:quoradeck');
+			newdiv.setAttribute('style', 'width:100%;height:100%;');
+			newdiv.setAttribute('src', 'http://answerreader.quora.com/');
+
+			document.getElementById('qdNewTabBody').appendChild(newdiv);
+
+			qdNewTabItemsModal.modal('show');
+		},
+
+		open_qd_contact: function () {
+			var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+				web_dialog = document.getElementById('web_dialog');
+			if (web_dialog !== null) {
+				web_dialog.parentNode.removeChild(web_dialog);
+			}
+			var newdiv = document.createElement('webview');
+			newdiv.setAttribute('id', 'web_dialog');
+			newdiv.setAttribute('partition', 'persist:quoradeck');
+			newdiv.setAttribute('style', 'width:100%;height:100%;');
+			newdiv.setAttribute('src', 'http://www.quora.com/Anuja-Kulkarni-Kumar');
+
+			document.getElementById('qdNewTabBody').appendChild(newdiv);
+
+			qdNewTabItemsModal.modal('show');
+		},
+
+		qd_dialog_back_handler: function () {
+			var dialogWebView = document.querySelector('#web_dialog');
+			dialogWebView.back();
+		},
+
+		deepCopy: function (o) {
+			var copy = o,
+				k;
+
+			if (o && typeof o === 'object') {
+				copy = Object.prototype.toString.call(o) === '[object Array]' ? [] : {};
+				for (k in o) {
+					copy[k] = this.deepCopy(o[k]);
+				}
+			}
+			return copy;
+		},
+
+		removeByValue: function (arr, val) {
+			for (var i = 0; i < arr.length; i++) {
+				if (arr[i] == val) {
+					arr.splice(i, 1);
+					break;
+				}
+			}
+		},
+
+		removeByIndex: function (arr, index) {
+			arr.splice(index, 1);
+		},
+
+		groupBy: function (data, param) {
+			return _.groupBy(data, param);
+		},
+
+		filterByHome: function (data) {
+			return _.filter(data, function (item) {
+				return item.type == 'home';
+			});
+		},
+
+		filterByTopic: function (data) {
+			return _.filter(data, function (item) {
+				return item.type == 'topic';
+			});
+		},
+
+		sortByColIdx: function (data) {
+			return _.sortBy(data, function (item) {
+				return item.colIdx;
+			});
+		},
+
+		moveToIndex: function (arr, moveIndex, toIndex) {
+			var removedItem = arr.splice(moveIndex, 1);
+			arr.splice(toIndex, 0, removedItem);
+		}
+	};
 });

@@ -2,283 +2,288 @@
 <html>
 
 <head>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/perfect-scrollbar-0.4.6.min.css" rel="stylesheet">
-    <link href="../css/main.css" rel="stylesheet">
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/perfect-scrollbar-0.4.6.min.css" rel="stylesheet">
+	<link href="../css/main.css" rel="stylesheet">
 
-    <script src="../lib/jquery-1.9.1.min.js"></script>
-    <script src="../lib/bootstrap.min.js"></script>
-    <script src="../lib/perfect-scrollbar-0.4.6.with-mousewheel.min.js"></script>
-    <script src="../lib/perfect-scrollbar-0.4.6.min.js"></script>
-    <script src="../lib/underscore-min.js"></script>
+	<script src="../lib/jquery-1.9.1.min.js"></script>
+	<script src="../lib/bootstrap.min.js"></script>
+	<script src="../lib/perfect-scrollbar-0.4.6.with-mousewheel.min.js"></script>
+	<script src="../lib/perfect-scrollbar-0.4.6.min.js"></script>
+	<script src="../lib/underscore-min.js"></script>
 
-    <script src="../src/constants.js"></script>
-    <script src="../src/util.js"></script>
-    <script src="../src/settings.js"></script>
-    <script src="../src/login.js"></script>
-    <script src="../src/cssinject.js"></script>
-    <script src="../src/main-view.js"></script>
-    <style>
-        body,
-        html {
-            height: 100%;
-        }
-        html {
-            width: 100%;
-            overflow-x: scroll;
-        }
-    </style>
+	<script src="../src/constants.js"></script>
+	<script src="../src/util.js"></script>
+	<script src="../src/settings.js"></script>
+	<script src="../src/login.js"></script>
+	<script src="../src/cssinject.js"></script>
+	<script src="../src/main-view.js"></script>
+	<style>
+		body,
+		html {
+			height: 100%;
+		}
+		html {
+			width: 100%;
+			overflow-x: scroll;
+		}
+	</style>
 </head>
 
 <body style="margin: 0px;">
-    <div id="quoradeck_lbar" class="qd-left-bar" style="display:none;">
-        <button class="qd-btn" id="quick_add_topic">
-            <span class="glyphicon glyphicon-plus"></span>&nbsp&nbsp Add Column
-        </button>
-        <button class="qd-btn" id="manage_quora_topics" style="ffont-size: 16px;">
-            <span class="glyphicon glyphicon-cog"></span>&nbsp&nbsp Manage Columns
-        </button>
-        <button class="qd-btn" id="qdhp_reload_btn">
-            <span class="glyphicon glyphicon-refresh"></span>&nbsp&nbsp Reload
-        </button>
+	<div id="quoradeck_lbar" class="qd-left-bar" style="display:none;">
+		<button class="qd-btn" id="quick_add_topic">
+			<span class="glyphicon glyphicon-plus"></span>&nbsp&nbsp Add Column
+		</button>
+		<button class="qd-btn" id="manage_quora_topics" style="ffont-size: 16px;">
+			<span class="glyphicon glyphicon-cog"></span>&nbsp&nbsp Manage Columns
+		</button>
+		<button class="qd-btn" id="qdhp_reload_btn">
+			<span class="glyphicon glyphicon-refresh"></span>&nbsp&nbsp Reload
+		</button>
 
-        <div id="lbar_dynamic_rows_wrapper">
-            <div id="lbar_dynamic_rows"></div>
-        </div>
+		<div id="lbar_dynamic_rows_wrapper">
+			<div id="lbar_dynamic_rows"></div>
+		</div>
+		<button class="qd-btn" id="qdhp_profile_btn">
+			<span class="glyphicon glyphicon-user"></span>
+			<span id="qdhp_profile_btn_text">&nbsp&nbsp Profile</span>
+		</button>
+		<button class="qd-btn" id="qdhp_inbox_btn">
+			<span class="glyphicon glyphicon-envelope"></span>&nbsp&nbsp Messages
+		</button>
+		<button class="qd-btn" id="qdhp_reading_btn">
+			<span class="glyphicon glyphicon-bookmark"></span>&nbsp&nbsp Reading List
+		</button>
+		<button class="qd-btn" id="qdhp_content_btn">
+			<span class="glyphicon glyphicon-leaf"></span>&nbsp&nbsp Your Content
+		</button>
+		<button class="qd-btn" id="qdhp_stats_btn">
+			<span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp Stats
+		</button>
+		<button class="qd-btn" id="qdhp_credits_btn">
+			<span class="glyphicon glyphicon-credit-card"></span>&nbsp&nbsp Credits
+		</button>
+		<button class="qd-btn" id="qdhp_search_btn">
+			<span class="glyphicon glyphicon-search"></span>&nbsp&nbsp Search
+		</button>
 
-        <button class="qd-btn" id="qdhp_search_btn">
-            <span class="glyphicon glyphicon-search"></span>&nbsp&nbsp Search
-        </button>
-        <button class="qd-btn" id="qdhp_profile_btn">
-            <span class="glyphicon glyphicon-user"></span>
-            <span id="qdhp_profile_btn_text">&nbsp&nbsp Profile</span>
-        </button>
-        <button class="qd-btn" id="qdhp_inbox_btn">
-            <span class="glyphicon glyphicon-envelope"></span>&nbsp&nbsp Messages
-        </button>
-        <button class="qd-btn" id="qdhp_stats_btn">
-            <span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp Stats
-        </button>
-        <button class="qd-btn" id="qdhp_credits_btn">
-            <span class="glyphicon glyphicon-credit-card"></span>&nbsp&nbsp Credits
-        </button>
+		<button class="qd-btn" id="qd_blog" style="border-top: 1px solid lightgray;">
+			<span class="glyphicon glyphicon-bell"></span>&nbsp&nbsp AnswerReader Blog
+		</button>
+		<button class="qd-btn" id="qd_contact">
+			<span class="glyphicon glyphicon-comment"></span>&nbsp&nbsp Contact
+		</button>
 
-        <button class="qd-btn" id="qd_blog" style="border-top: 1px solid lightgray;">
-            <span class="glyphicon glyphicon-bell"></span>&nbsp&nbsp AnswerReader Blog
-        </button>
-        <button class="qd-btn" id="qd_contact">
-            <span class="glyphicon glyphicon-comment"></span>&nbsp&nbsp Contact
-        </button>
+	</div>
 
-    </div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Manage AnswerReader Items</h4>
+				</div>
+				<div class="modal-body">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a href="#qd_tab_home" data-toggle="tab">Home</a>
+						</li>
+						<li>
+							<a href="#qd_tab_topics" data-toggle="tab">Topics</a>
+						</li>
+					</ul>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Manage AnswerReader Items</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#qd_tab_home" data-toggle="tab">Home</a>
-                        </li>
-                        <li>
-                            <a href="#qd_tab_topics" data-toggle="tab">Topics</a>
-                        </li>
-                    </ul>
+					<!-- Tab panes -->
+					<div class="tab-content" style="padding:30px">
+						<div class="tab-pane active" id="qd_tab_home">
+							<h4>Select Columns</h4>
+							<br>
+							<table class="topic_table table table-bordered">
+								<tbody>
+									<tr>
+										<td>
+											<input type="checkbox" id="home_tab0">
+										</td>
+										<td>Top Stories</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="checkbox" id="home_tab1">
+										</td>
+										<td>Questions & Answers</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="checkbox" id="home_tab2">
+										</td>
+										<td>Open Questions</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="checkbox" id="home_tab3">
+										</td>
+										<td>Blog Posts</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="checkbox" id="home_tab4">
+										</td>
+										<td>Notifications</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="tab-pane" id="qd_tab_topics">
+							<h4>Manage Topics</h4>
+							<table class="topic_table table">
+								<tbody>
+									<tr>
+										<td>Topic 1 :</td>
+										<td>
+											<input type="text" id="keyword0">
+										</td>
+										<td>Topic 2 :</td>
+										<td>
+											<input type="text" id="keyword1">
+										</td>
+									</tr>
+									<tr>
+										<td>Topic 3 :</td>
+										<td>
+											<input type="text" id="keyword2">
+										</td>
+										<td>Topic 4 :</td>
+										<td>
+											<input type="text" id="keyword3">
+										</td>
+									</tr>
+									<tr>
+										<td>Topic 5 :</td>
+										<td>
+											<input type="text" id="keyword4">
+										</td>
+										<td>Topic 6 :</td>
+										<td>
+											<input type="text" id="keyword5">
+										</td>
+									</tr>
+									<tr>
+										<td>Topic 7 :</td>
+										<td>
+											<input type="text" id="keyword6">
+										</td>
+										<td>Topic 8 :</td>
+										<td>
+											<input type="text" id="keyword7">
+										</td>
+									</tr>
+									<tr>
+										<td>Topic 9 :</td>
+										<td>
+											<input type="text" id="keyword8">
+										</td>
+										<td>Topic 10 :</td>
+										<td>
+											<input type="text" id="keyword9">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="qd_topics_close" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default" id="qd_topics_save">Save</button>
+					<button type="button" class="btn btn-primary" id="qd_topics_save_reload">Save changes and Reload</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
 
-                    <!-- Tab panes -->
-                    <div class="tab-content" style="padding:30px">
-                        <div class="tab-pane active" id="qd_tab_home">
-                            <h4>Select Columns</h4>
-                            <br>
-                            <table class="topic_table table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" id="home_tab0">
-                                        </td>
-                                        <td>Top Stories</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" id="home_tab1">
-                                        </td>
-                                        <td>Questions & Answers</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" id="home_tab2">
-                                        </td>
-                                        <td>Open Questions</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" id="home_tab3">
-                                        </td>
-                                        <td>Blog Posts</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" id="home_tab4">
-                                        </td>
-                                        <td>Notifications</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane" id="qd_tab_topics">
-                            <h4>Manage Topics</h4>
-                            <table class="topic_table table">
-                                <tbody>
-                                    <tr>
-                                        <td>Topic 1 :</td>
-                                        <td>
-                                            <input type="text" id="keyword0">
-                                        </td>
-                                        <td>Topic 2 :</td>
-                                        <td>
-                                            <input type="text" id="keyword1">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Topic 3 :</td>
-                                        <td>
-                                            <input type="text" id="keyword2">
-                                        </td>
-                                        <td>Topic 4 :</td>
-                                        <td>
-                                            <input type="text" id="keyword3">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Topic 5 :</td>
-                                        <td>
-                                            <input type="text" id="keyword4">
-                                        </td>
-                                        <td>Topic 6 :</td>
-                                        <td>
-                                            <input type="text" id="keyword5">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Topic 7 :</td>
-                                        <td>
-                                            <input type="text" id="keyword6">
-                                        </td>
-                                        <td>Topic 8 :</td>
-                                        <td>
-                                            <input type="text" id="keyword7">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Topic 9 :</td>
-                                        <td>
-                                            <input type="text" id="keyword8">
-                                        </td>
-                                        <td>Topic 10 :</td>
-                                        <td>
-                                            <input type="text" id="keyword9">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="qd_topics_close" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-default" id="qd_topics_save">Save</button>
-                    <button type="button" class="btn btn-primary" id="qd_topics_save_reload">Save changes and Reload</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
+	<!-- Modal -->
+	<div class="modal fade" id="savedItemsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Bookmarks</h4>
+				</div>
+				<div class="modal-body" style="height:500px;overflow-y:scroll;">
+					<!-- Tab panes -->
+					<div class="tab-content" style="padding:30px">
+						<div class="tab-pane active" id="qd_savedItems_div">
+							<table class="topic_table table table-bordered" id="qd_savedItems_table">
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="qd_topics_close" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default" id="qd_delete_savedItem">Save</button>
+					<button type="button" class="btn btn-primary" id="qd_topics_save_reload">Save changes and Reload</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
 
-    <!-- Modal -->
-    <div class="modal fade" id="savedItemsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Bookmarks</h4>
-                </div>
-                <div class="modal-body" style="height:500px;overflow-y:scroll;">
-                    <!-- Tab panes -->
-                    <div class="tab-content" style="padding:30px">
-                        <div class="tab-pane active" id="qd_savedItems_div">
-                            <table class="topic_table table table-bordered" id="qd_savedItems_table">
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="qd_topics_close" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-default" id="qd_delete_savedItem">Save</button>
-                    <button type="button" class="btn btn-primary" id="qd_topics_save_reload">Save changes and Reload</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <div class="modal fade" id="qdNewTabItemsModal" style="top:5px;bottom:5px;" tabindex="-1" role="dialog" aria-labelledby="qdNewTabLabel" aria-hidden="true">
-        <div class="modal-dialog" style="width:100%;margin:0px;">
-            <div class="modal-content">
-                <!-- Add height 40-50px in modal-header to show the webview bottom part completely.Right now around 3-4px goes inside.-->
-                <div class="modal-header">
-                    <span id="qd_dialog_back" class="glyphicon glyphicon-arrow-left" style="display:none;cursor: pointer;"></span>
-                    <!--span id="forward" title="Go Forward" class="glyphicon glyphicon-arrow-right"></span>
+	<div class="modal fade" id="qdNewTabItemsModal" style="top:5px;bottom:5px;" tabindex="-1" role="dialog" aria-labelledby="qdNewTabLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width:100%;margin:0px;">
+			<div class="modal-content">
+				<!-- Add height 40-50px in modal-header to show the webview bottom part completely.Right now around 3-4px goes inside.-->
+				<div class="modal-header">
+					<span id="qd_dialog_back" class="glyphicon glyphicon-arrow-left" style="display:none;cursor: pointer;"></span>
+					<!--span id="forward" title="Go Forward" class="glyphicon glyphicon-arrow-right"></span>
 				<span id="home" title="Go Home" class="glyphicon glyphicon-home"></span>
 				<span id="reload" title="Reload" class="glyphicon glyphicon-repeat"></span-->
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <!--h4 class="modal-title" id="qdNewTabLabel" style="position: absolute;top: 15px;left: 150px;">AnswerReader</h4-->
-                    <h4 class="modal-title" id="qdNewTabLabel" style="display: inline-block;">AnswerReader</h4>
-                </div>
-                <div class="modal-body" id="qdNewTabBody" style="width: 100%;height:100%;">
-                    <webview id="web_dialog" src="about:blank" partition="persist:quoradeck" style="width:100%;height:100%;"></webview>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<!--h4 class="modal-title" id="qdNewTabLabel" style="position: absolute;top: 15px;left: 150px;">AnswerReader</h4-->
+					<h4 class="modal-title" id="qdNewTabLabel" style="display: inline-block;">AnswerReader</h4>
+				</div>
+				<div class="modal-body" id="qdNewTabBody" style="width: 100%;height:100%;">
+					<webview id="web_dialog" src="about:blank" partition="persist:quoradeck" style="width:100%;height:100%;"></webview>
 
-                </div>
-                <div class="modal-footer" id="qdNewTabFooter">
-                    <button type="button" class="btn btn-default" id="qd_newTab_close" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-    <!-- Modal for Quick Add -->
-    <div class="modal fade" id="quickAddTopic" tabindex="-1" role="dialog" aria-labelledby="qdAddTopic" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="qdAddTopic">Add Topic</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="text" id="keyword_quickAdd">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="qd_topics_close_quick" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-default" id="qd_topics_save_quick">Save</button>
-                    <button type="button" class="btn btn-primary" id="qd_topics_save_reload_quick">Save changes and Reload</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
+				</div>
+				<div class="modal-footer" id="qdNewTabFooter">
+					<button type="button" class="btn btn-default" id="qd_newTab_close" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	<!-- Modal for Quick Add -->
+	<div class="modal fade" id="quickAddTopic" tabindex="-1" role="dialog" aria-labelledby="qdAddTopic" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="qdAddTopic">Add Topic</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="keyword_quickAdd">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="qd_topics_close_quick" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default" id="qd_topics_save_quick">Save</button>
+					<button type="button" class="btn btn-primary" id="qd_topics_save_reload_quick">Save changes and Reload</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
 </body>
 
 </html>

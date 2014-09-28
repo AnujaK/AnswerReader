@@ -19,6 +19,9 @@ jQuery(function ($) {
 			document.getElementById('qdhp_profile_btn').addEventListener('click', app.Utils.open_qd_profile);
 			document.getElementById('qdhp_inbox_btn').addEventListener('click', app.Utils.open_qd_inbox);
 
+			document.getElementById('qdhp_reading_btn').addEventListener('click', app.Utils.open_qd_reading);
+			document.getElementById('qdhp_content_btn').addEventListener('click', app.Utils.open_qd_content);
+
 			document.getElementById('qdhp_stats_btn').addEventListener('click', app.Utils.open_qd_stats);
 			document.getElementById('qdhp_credits_btn').addEventListener('click', app.Utils.open_qd_credits);
 

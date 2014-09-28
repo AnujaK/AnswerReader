@@ -43,6 +43,40 @@ jQuery(function ($) {
 			qdNewTabItemsModal.modal('show');
 		},
 
+		open_qd_reading: function () {
+			var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+				web_dialog = document.getElementById('web_dialog');
+			if (web_dialog !== null) {
+				web_dialog.parentNode.removeChild(web_dialog);
+			}
+			var newdiv = document.createElement('webview');
+			newdiv.setAttribute('id', 'web_dialog');
+			newdiv.setAttribute('partition', 'persist:quoradeck');
+			newdiv.setAttribute('style', 'width:100%;height:100%;');
+			newdiv.setAttribute('src', 'http://www.quora.com/reading_list');
+
+			document.getElementById('qdNewTabBody').appendChild(newdiv);
+
+			qdNewTabItemsModal.modal('show');
+		},
+
+		open_qd_content: function () {
+			var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
+				web_dialog = document.getElementById('web_dialog');
+			if (web_dialog !== null) {
+				web_dialog.parentNode.removeChild(web_dialog);
+			}
+			var newdiv = document.createElement('webview');
+			newdiv.setAttribute('id', 'web_dialog');
+			newdiv.setAttribute('partition', 'persist:quoradeck');
+			newdiv.setAttribute('style', 'width:100%;height:100%;');
+			newdiv.setAttribute('src', 'http://www.quora.com/content');
+
+			document.getElementById('qdNewTabBody').appendChild(newdiv);
+
+			qdNewTabItemsModal.modal('show');
+		},
+
 		open_qd_profile: function () {
 			var qdNewTabItemsModal = $('#qdNewTabItemsModal'),
 				web_dialog = document.getElementById('web_dialog');

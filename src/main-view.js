@@ -328,7 +328,7 @@ jQuery(function ($) {
 					}
 
 					var main_window_width = 522 * no_of_topics_to_display;
-					document.body.setAttribute('style', 'width: ' + main_window_width + 'px; height: 100%;margin-left:200px;');
+					document.body.setAttribute('style', 'width: ' + main_window_width + 'px; height: 100%;margin-left:50px;');
 				});
 			});
 		},

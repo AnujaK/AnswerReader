@@ -2,7 +2,7 @@
 	border-top: none !important;
 }
 .qd-left-bar {
-	width: 200px;
+	width: 50px;
 	height: 100%;
 	position: fixed;
 	top: 0;
@@ -32,6 +32,9 @@
 	color: white;
 	font-weight: bold;
 	box-shadow: inset 0px 1px 1px #475059;
+}
+.qd-left-bar:hover {
+	width: 200px;
 }
 span.glyphicon-trash:hover {
 	cursor: pointer;

@@ -34,6 +34,9 @@ jQuery(function ($) {
 			document.getElementById('qd_topics_save_quick').addEventListener('click', app.Settings.save_topic_quick);
 			document.getElementById('qd_topics_save_reload_quick').addEventListener('click', app.Settings.save_topics_and_reload_quick);
 
+			document.getElementById('quoradeck_lbar').addEventListener('mouseenter', app.Utils.open_left_nav);
+			document.getElementById('quoradeck_lbar').addEventListener('mouseleave', app.Utils.close_left_nav);
+
 			//Login workflow
 			app.Login.apiLoginInWebView();
 
@@ -158,6 +161,7 @@ jQuery(function ($) {
 							var navSpanIconClass;
 							var navSpan = document.createElement('span');
 							navSpan.setAttribute('id', 'qd-nav-span' + i);
+							navSpan.setAttribute('class', 'lbar_menu_text');
 							var lbLabel;
 							if (topicVal == "") {
 								lbLabel = "Top Stories";

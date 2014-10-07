@@ -11,6 +11,16 @@ jQuery(function ($) {
 			$('body, html').scrollLeft(5000);
 		},
 
+		open_left_nav: function () {
+			$('.lbar_menu_text').show();
+			console.log("open_left_nav");
+		},
+
+		close_left_nav: function () {
+			$('.lbar_menu_text').hide();
+			console.log("close_left_nav");
+		},
+
 		getQuoraUserDetails: function () {
 			chrome.alarms.create("QUORA_USER_DETAILS_ALARM", {
 				delayInMinutes: 1

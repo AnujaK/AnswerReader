@@ -115,6 +115,7 @@ jQuery(function ($) {
 							var panel = document.createElement('div');
 							panel.setAttribute('class', 'panel panel-default main-webview-panel');
 							panel.setAttribute('style', 'width: 522px; height: 100%; display: inline-block;');
+							panel.setAttribute('id', 'main-webview-panel' + i);
 
 							var panelHead = document.createElement('div');
 							panelHead.setAttribute('class', 'panel-heading');
@@ -236,15 +237,14 @@ jQuery(function ($) {
 
 							var deleteButton = document.createElement('img');
 							deleteButton.setAttribute('src', '../img/RecycleBin.png');
-							deleteButton.setAttribute('style', 'display:none;float:right;cursor:pointer;height:15px;margin-right:10px;');
+							deleteButton.setAttribute('style', 'float:right;cursor:pointer;height:15px;margin-right:10px;');
 							panelHead.appendChild(deleteButton);
 							(function (deleteButton, i, encodedURL) {
 								deleteButton.addEventListener('click', function () {
-									var columnWebView = $('#main-webview' + i);
-									var qdNewTabItemsModal = $('#qdNewTabItemsModal');
-									var web_dialog = $('#web_dialog');
-									web_dialog.attr('src', columnWebView.attr('src'));
-									qdNewTabItemsModal.modal('show');
+									var mainWebViewPanel = document.getElementById('main-webview-panel' + i);
+									if (mainWebViewPanel !== null) {
+										mainWebViewPanel.parentNode.removeChild(mainWebViewPanel);
+									}
 								});
 							})(deleteButton, i, encodedURL);
 

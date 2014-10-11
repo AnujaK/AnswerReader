@@ -239,14 +239,15 @@ jQuery(function ($) {
 							deleteButton.setAttribute('src', '../img/RecycleBin.png');
 							deleteButton.setAttribute('style', 'float:right;cursor:pointer;height:15px;margin-right:10px;');
 							panelHead.appendChild(deleteButton);
-							(function (deleteButton, i, encodedURL) {
+							(function (deleteButton, i, encodedURL, topicVal) {
 								deleteButton.addEventListener('click', function () {
 									var mainWebViewPanel = document.getElementById('main-webview-panel' + i);
 									if (mainWebViewPanel !== null) {
 										mainWebViewPanel.parentNode.removeChild(mainWebViewPanel);
+										app.Settings.remove_home_column(false, topicVal, app.Settings.remove_topic_column(topicVal));
 									}
 								});
-							})(deleteButton, i, encodedURL);
+							})(deleteButton, i, encodedURL, topicVal);
 
 							var wikiButton = document.createElement('img');
 							wikiButton.setAttribute('src', '../img/wikipedia-32-black.png');

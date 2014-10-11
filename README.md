@@ -1,9 +1,9 @@
 AnswerReader
 ============
 
-A fully customizable multi-column view of Quora.
+AnswerReader is a powerful app to organize and customize Quora, providing a friendly experience.
 
-Use Quora like a power user and get the most out of it.
+AnswerReader acts as a single interface for performing various activities. Using Quora from a browser will most likely result in multiple browser tabs being opened. AnswerReader provides a multi-column view of Quora. User can save which all topics he wants in those columns. These saved topics appear as per their order, until the user doesn't remove or change them. User need not set them every time he uses AnswerReader. Any of the columns can be scrolled to main readable area by simply clicking on the topic name in the left navigation panel. AnswerReader provides quick access to most of the profile related info like stats and credits.
 
 Download from Chrome Web Store : https://chrome.google.com/webstore/detail/answerreader/nmlmmfhcfakpadbomgockopmaojmcnlk
 

@@ -46,3 +46,34 @@ Once you've loaded the app, open a New Tab page and click on the AnswerReader ic
 Note : This tool is under active development. A lot of new features coming soon.
 
 Send your suggestions and feedback to  http://www.quora.com/Anuja-Kulkarni-Kumar
+
+Contribute
+==========
+
+You're interested in contributing to AnswerReader? AWESOME. Here are the basic steps:
+
+- Make sure you have a [GitHub Account](https://github.com/signup/free)
+- Fork AnswerReader from here : https://github.com/AnujaK/AnswerReader
+- Clone your fork  
+- Make your changes
+- Make sure everything is working fine
+- Format your code (see below)
+- Submit a pull request
+
+##### GitHub help : 
+
+- Forking a repo - https://help.github.com/articles/fork-a-repo
+- Creating a pull request - https://help.github.com/articles/creating-a-pull-request
+- Syncing a fork - https://help.github.com/articles/syncing-a-fork
+ 
+Releases
+==========
+
+https://github.com/AnujaK/AnswerReader/releases
+
+Copyright and License
+==========
+
+Copyright 2014 Anuja Ranjan Kumar (a.for.anuja@gmail.com)
+
+Licensed under Apache License, Version 2.0

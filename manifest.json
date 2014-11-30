@@ -1,7 +1,7 @@
 {
 	"name": "AnswerReader",
 	"description": "A fully customizable multi-column view of Quora.",
-	"version": "0.4.0.8",
+	"version": "0.4.0.9",
 	"permissions": ["webview", "contextMenus", "alarms", "pointerLock", "storage", "http://*.quora.com/"],
 	"app": {
 		"background": {

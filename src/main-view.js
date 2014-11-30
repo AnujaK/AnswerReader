@@ -119,12 +119,13 @@ jQuery(function ($) {
 
 							var panelHead = document.createElement('div');
 							panelHead.setAttribute('class', 'panel-heading');
+                            panelHead.setAttribute('style', 'height:41px;');
 
 							panel.appendChild(panelHead);
 
 							var panelBody = document.createElement('div');
 							panelBody.setAttribute('class', 'panel-body');
-							panelBody.setAttribute('style', 'padding:0px;');
+							panelBody.setAttribute('style', 'padding:0px;height:100%;');
 							panel.appendChild(panelBody);
 
 							var newdiv = document.createElement('webview');

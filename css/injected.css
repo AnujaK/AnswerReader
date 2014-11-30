@@ -19,6 +19,9 @@ body {
 .NewNotificationsMain .grid_page_wrap .grid_page_center_col {
 	width: 490px;
 }
+.NewNotif{
+	width: 490px;
+}
 .action_bar_comments .threaded_comments {
 	width: 100%;
 }
